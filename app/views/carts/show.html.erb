@@ -58,10 +58,10 @@
   <%= form_tag(profile_orders_path, method: :post, class: 'text-center') do %>
       <% @user.locations.each do |location| %>
         <% if location.name == 'home' %>
-          <%= check_box_tag 'location', location.name, checked: true %>
+          <%= radio_button_tag 'location', location.name, checked: true %>
           <%= label_tag location.name %>
         <% else %>
-          <%= check_box_tag 'location', location.name %>
+          <%= radio_button_tag 'location', location.name %>
           <%= label_tag location.name %>
         <% end %>
       <% end %><br>

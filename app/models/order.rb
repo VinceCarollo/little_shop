@@ -1,5 +1,7 @@
 class Order < ApplicationRecord
   belongs_to :user
+  belongs_to :location, required: false
+
   has_many :order_items
   has_many :items, through: :order_items
 
@@ -30,7 +32,7 @@ class Order < ApplicationRecord
       update(status: :packaged)
     end
   end
-  
+
   def self.biggest_3
     self.joins(:items)
         .select('count(items.id), orders.*')

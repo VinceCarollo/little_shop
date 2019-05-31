@@ -40,9 +40,7 @@ RSpec.describe 'As a registered default user' do
     end
 
     it 'allows me to choose my address to ship to' do
-
-      save_and_open_page
-      click_link 'Checkout'
+      
     end
 
   end

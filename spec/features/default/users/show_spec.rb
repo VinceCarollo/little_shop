@@ -60,7 +60,7 @@ RSpec.describe 'User show page', type: :feature do
 
       it 'shows all my addresses' do
         visit profile_path
-        save_and_open_page
+
         within '#locations' do
 
           within "#location-#{@location_1.id}" do

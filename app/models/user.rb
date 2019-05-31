@@ -1,7 +1,8 @@
 class User < ApplicationRecord
   has_many :items
   has_many :orders
-
+  has_many :locations
+  
   validates_presence_of :password_digest, :name, :address, :city, :state, :zip
 
   validates :email, presence: true, uniqueness: true

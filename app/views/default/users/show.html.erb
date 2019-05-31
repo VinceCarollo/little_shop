@@ -10,6 +10,19 @@
 <p>State: <%= @user.state %></p>
 <p>Zip Code: <%= @user.zip %></p>
 
+<section id='locations'>
+  <h3>Your Saved Addresses</h3>
+  <% @user.locations.each do |location| %>
+    <section id='location-<%= location.id %>'>
+      <h4><%= location.name %></h4>
+      <p>Street: <%= location.address %></p>
+      <p>City: <%= location.city %></p>
+      <p>State: <%= location.state %></p>
+      <p>Zip: <%= location.zip %></p>
+    </section>
+  <% end %>
+</section>
+
 <%= link_to "Edit Profile", profile_edit_path %>
 
 <% if @user.orders.length > 0 %>

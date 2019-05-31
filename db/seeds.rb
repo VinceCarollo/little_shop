@@ -42,6 +42,7 @@ mascarpone = Item.create!(name: "Mascarpone", price: 222.99, image: 'https://cdn
 swiss = Item.create!(name: "Swiss", price: 2.99, image: 'https://cdn.shopify.com/s/files/1/0150/0232/products/Pearl_Valley_Swiss_Slices_36762caf-0757-45d2-91f0-424bcacc9892_grande.jpg?v=1534871055', inventory: 892, description: "Swiss cheese is a generic name in North America for several related varieties of cheese, mainly of North American manufacture, which resemble Emmental cheese, a yellow, medium-hard cheese that originated in the area around Emmental, in Switzerland.", user: merchant_5)
 
 buyer_1 = User.create!(email: 'buyer1@gmail.com', password: 'password', active: true, name: 'Jason Lovescheese', address: '1234 Test Dr', city: 'Denver', state: 'CO', zip: '80123')
+buyer_1.locations.create!(name: 'home', city: 'Denver', state: 'CO', zip: '80123', address: '1234 Test Dr')
 buyer_2 = User.create!(email: 'buyer2@gmail.com', password: 'password', active: true, name: 'Christina Grater', address: '1234 Test Dr', city: 'Kansas City', state: 'MO', zip: '80123')
 buyer_3 = User.create!(email: 'buyer3@gmail.com', password: 'password', active: true, name: 'Jack Pepper', address: '1234 Test Dr', city: 'Boston', state: 'MA', zip: '80123')
 buyer_4 = User.create!(email: 'buyer4@gmail.com', password: 'password', active: true, name: 'Jason Munster', address: '1234 Test Dr', city: 'Oakland', state: 'CA', zip: '80123')

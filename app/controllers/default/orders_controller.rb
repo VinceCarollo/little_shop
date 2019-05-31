@@ -21,6 +21,7 @@ class Default::OrdersController < Default::BaseController
   end
 
   def create
+    
     cart = Cart.new(session[:cart])
     if cart.contents.empty?
       carts_path

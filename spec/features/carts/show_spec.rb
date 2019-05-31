@@ -326,7 +326,7 @@ describe 'As a registered user' do
     end
 
     it 'allows me to checkout' do
-      click_link 'Checkout'
+      click_button 'Checkout'
       order = Order.last
       expect(order.status).to eq("pending")
       expect(order.user).to eq(@user)
@@ -335,7 +335,7 @@ describe 'As a registered user' do
     end
 
     it 'shows my order on my orders page' do
-      click_link 'Checkout'
+      click_button 'Checkout'
       order = Order.last
       within "#order-#{order.id}" do
         expect(page).to have_link("Order ID: #{order.id}")
@@ -343,7 +343,7 @@ describe 'As a registered user' do
     end
 
     it 'clears my cart' do
-      click_link 'Checkout'
+      click_button 'Checkout'
       within '#navbarNav' do
         expect(page).to have_content("(0)")
       end

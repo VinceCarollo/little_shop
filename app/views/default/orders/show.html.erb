@@ -15,6 +15,14 @@
   </section>
 <% end %>
 
+<% if !@order.location.nil? %>
+  <p>Address Used: <%= @order.location.name %></p>
+  <p><%= @order.location.address %></p>
+  <p><%= @order.location.city %></p>
+  <p><%= @order.location.state %></p>
+  <p><%= @order.location.zip %></p>
+<% end %>
+
 <p>Number of Items: <%= @order.item_count %></p>
 <p>Grand Total: <%= number_to_currency(@order.grand_total, unit: "$") %></p>
 

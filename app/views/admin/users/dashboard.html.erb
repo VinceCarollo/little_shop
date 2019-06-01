@@ -9,10 +9,21 @@
           <p>Email: <%= @user.email.titlecase %></p>
           <p>Role: <%= @user.role.titlecase %></p>
           <p>Active: <%= @user.active %></p>
-          <p>Address: <%= @user.address.titlecase %></p>
-          <p>City: <%= @user.city.titlecase %></p>
-          <p>State: <%= @user.state.titlecase %></p>
-          <p>Zip Code: <%= @user.zip.titlecase %></p>
+          <section id='locations'>
+            <h3>Your Saved Addresses</h3>
+            <%= link_to "Add Address", new_user_location_path(@user)  %>
+            <% @user.locations.each do |location| %>
+              <section id='location-<%= location.id %>'>
+                <h4><%= location.name %></h4>
+                <p>Street: <%= location.address %></p>
+                <p>City: <%= location.city %></p>
+                <p>State: <%= location.state %></p>
+                <p>Zip: <%= location.zip %></p>
+                <p><%= link_to "Delete #{location.name.capitalize}", user_location_path(@user, location), method: :delete  %></p>
+                <p><%= link_to "Edit #{location.name.capitalize}", edit_user_location_path(@user, location) %></p>
+              </section>
+            <% end %>
+          </section>
         </div>
       </div>
     </div>

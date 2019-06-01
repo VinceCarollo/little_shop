@@ -3,8 +3,9 @@ class LocationsController < ApplicationController
   def destroy
     user = User.find(params[:user_id])
     location = Location.find(params[:id])
-    if order_check(user, location)
+    if used_in_completed_order?(user, location)
       flash.notice = "Your #{location.name} address is being used for a current order and cannot be deleted"
+      redirect_to profile_path
     else
       location.destroy
       redirect_to profile_path
@@ -13,8 +14,13 @@ class LocationsController < ApplicationController
 
   private
 
-  def order_check(user, location)
-    orders_shipped_to = user.orders.map{|order| order.location_id}
-    orders_shipped_to.include?(location.id)
+  def used_in_completed_order?(user, location)
+    used = false
+    user.orders.each do |order|
+      if order.location == location
+        used = order.status == "shipped" || order.status == "packaged"
+      end
+    end
+    used
   end
 end

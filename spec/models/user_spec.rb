@@ -10,8 +10,6 @@ RSpec.describe User, type: :model do
   describe 'validations' do
     it { should validate_presence_of :email }
     it { should validate_presence_of :password_digest }
-    # it { should validate_presence_of :role }
-    # it { should validate_presence_of :active }
     it { should validate_presence_of :name }
 
     it { should validate_uniqueness_of :email }
@@ -20,9 +18,9 @@ RSpec.describe User, type: :model do
   describe 'class methods' do
 
     it 'email_string' do
-      user_1 = User.create!(name: "default_user", role: 0, active: true, password_digest: "8320280282", address: "333", city: "Denver", state: "CO", zip: "80000", email: "default_user@gmail.com" )
-      user_2 = User.create!(name: "default_user1", role: 0, active: true, password_digest: "8320280282", address: "333", city: "Denver", state: "CO", zip: "80000", email: "default_user1@gmail.com" )
-      user_3 = User.create!(name: "default_user2", role: 0, active: true, password_digest: "8320280282", address: "333", city: "Denver", state: "CO", zip: "80000", email: "default_user2@gmail.com" )
+      user_1 = User.create!(name: "default_user", role: 0, active: true, password_digest: "8320280282", email: 'default_user@gmail.com')
+      user_2 = User.create!(name: "default_user1", role: 0, active: true, password_digest: "8320280282", email: 'default_user1@gmail.com')
+      user_3 = User.create!(name: "default_user2", role: 0, active: true, password_digest: "8320280282", email: 'default_user2@gmail.com')
 
       expect(User.email_string).to include("default_user@gmail.com")
       expect(User.email_string).to include("default_user1@gmail.com")
@@ -48,10 +46,10 @@ RSpec.describe User, type: :model do
     end
 
     it '.top_3_merchants_by_sales' do
-      merchant_1 = create(:user, role: 1, created_at: Date.new(1995, 5, 3), city: 'Kansas City', state: "MO")
-      merchant_2 = create(:user, role: 1, created_at: Date.new(2015, 12, 8), city: 'Springfield', state: 'CO')
-      merchant_3 = create(:user, role: 1, created_at: Date.new(2002, 9, 10), city: 'Springfield', state: 'MI')
-      merchant_4 = create(:user, role: 1, created_at: Date.new(1955, 3, 21), city: 'Little Rock', state: 'AR')
+      merchant_1 = create(:user, role: 1, created_at: Date.new(1995, 5, 3))
+      merchant_2 = create(:user, role: 1, created_at: Date.new(2015, 12, 8))
+      merchant_3 = create(:user, role: 1, created_at: Date.new(2002, 9, 10))
+      merchant_4 = create(:user, role: 1, created_at: Date.new(1955, 3, 21))
       merchant_5 = create(:user, role: 1, active: false)
       merchant_6 = create(:user, role: 1, active: false)
       user = create(:user)
@@ -85,10 +83,10 @@ RSpec.describe User, type: :model do
     end
 
     it '.fastest_fulfilling_merchants and .slowest_fulfilling_merchants' do
-      merchant_1 = create(:user, role: 1, created_at: Date.new(1995, 5, 3), city: 'Kansas City', state: "MO")
-      merchant_2 = create(:user, role: 1, created_at: Date.new(2015, 12, 8), city: 'Springfield', state: 'CO')
-      merchant_3 = create(:user, role: 1, created_at: Date.new(2002, 9, 10), city: 'Springfield', state: 'MI')
-      merchant_4 = create(:user, role: 1, created_at: Date.new(1955, 3, 21), city: 'Little Rock', state: 'AR')
+      merchant_1 = create(:user, role: 1, created_at: Date.new(1995, 5, 3))
+      merchant_2 = create(:user, role: 1, created_at: Date.new(2015, 12, 8))
+      merchant_3 = create(:user, role: 1, created_at: Date.new(2002, 9, 10))
+      merchant_4 = create(:user, role: 1, created_at: Date.new(1955, 3, 21))
       merchant_5 = create(:user, role: 1, active: false)
       merchant_6 = create(:user, role: 1, active: false)
       user = create(:user)
@@ -128,10 +126,14 @@ RSpec.describe User, type: :model do
     end
 
     it '.top_3_states' do
-      merchant_1 = create(:user, role: 1, created_at: Date.new(1995, 5, 3), city: 'Kansas City', state: "MO")
-      merchant_2 = create(:user, role: 1, created_at: Date.new(2015, 12, 8), city: 'Springfield', state: 'CO')
-      merchant_3 = create(:user, role: 1, created_at: Date.new(2002, 9, 10), city: 'Springfield', state: 'MI')
-      merchant_4 = create(:user, role: 1, created_at: Date.new(1955, 3, 21), city: 'Little Rock', state: 'AR')
+      merchant_1 = create(:user, role: 1, created_at: Date.new(1995, 5, 3))
+      merchant_1.locations.create!(name: 'home', city: 'Kansas City', state: "MO", address: '1234', zip: '1234' )
+      merchant_2 = create(:user, role: 1, created_at: Date.new(2015, 12, 8))
+      merchant_2.locations.create!(name: 'home', city: 'Springfield', state: "CO", address: '1234', zip: '1234' )
+      merchant_3 = create(:user, role: 1, created_at: Date.new(2002, 9, 10))
+      merchant_3.locations.create!(name: 'home', city: 'Springfield', state: "MI", address: '1234', zip: '1234' )
+      merchant_4 = create(:user, role: 1, created_at: Date.new(1955, 3, 21))
+      merchant_4.locations.create!(name: 'home', city: 'Little Rock', state: "AR", address: '1234', zip: '1234' )
       merchant_5 = create(:user, role: 1, active: false)
       merchant_6 = create(:user, role: 1, active: false)
       user = create(:user)
@@ -170,10 +172,14 @@ RSpec.describe User, type: :model do
     end
 
     it '.top_3_cities' do
-      merchant_1 = create(:user, role: 1, created_at: Date.new(1995, 5, 3), city: 'Kansas City', state: "MO")
-      merchant_2 = create(:user, role: 1, created_at: Date.new(2015, 12, 8), city: 'Springfield', state: 'CO')
-      merchant_3 = create(:user, role: 1, created_at: Date.new(2002, 9, 10), city: 'Springfield', state: 'MI')
-      merchant_4 = create(:user, role: 1, created_at: Date.new(1955, 3, 21), city: 'Little Rock', state: 'AR')
+      merchant_1 = create(:user, role: 1, created_at: Date.new(1995, 5, 3))
+      merchant_1.locations.create!(name: 'home', city: 'Kansas City', state: "MO", address: '1234', zip: '1234' )
+      merchant_2 = create(:user, role: 1, created_at: Date.new(2015, 12, 8))
+      merchant_2.locations.create!(name: 'home', city: 'Springfield', state: "CO", address: '1234', zip: '1234' )
+      merchant_3 = create(:user, role: 1, created_at: Date.new(2002, 9, 10))
+      merchant_3.locations.create!(name: 'home', city: 'Springfield', state: "MI", address: '1234', zip: '1234' )
+      merchant_4 = create(:user, role: 1, created_at: Date.new(1955, 3, 21))
+      merchant_4.locations.create!(name: 'home', city: 'Little Rock', state: "AR", address: '1234', zip: '1234' )
       merchant_5 = create(:user, role: 1, active: false)
       merchant_6 = create(:user, role: 1, active: false)
       user = create(:user)
@@ -252,18 +258,25 @@ RSpec.describe User, type: :model do
       @item_2 = create(:item, user: @merchant)
       @item_3 = create(:item, user: @merchant)
       @item_4 = create(:item, user: @merchant)
-      @user_1 = create(:user, state: 'CO', city: 'one', name: 'user_1')
-      @user_2 = create(:user, state: 'CO', city: 'two', name: 'user_2')
-      @user_3 = create(:user, state: 'IL', city: 'one', name: 'user_3')
-      @user_4 = create(:user, state: 'IL', city: 'one', name: 'user_4')
-      @user_5 = create(:user, state: 'CA', city: 'one', name: 'user_5')
-      @order_1 = create(:order, user: @user_1, status: 2)
-      @order_2 = create(:order, user: @user_2, status: 2)
-      @order_3 = create(:order, user: @user_3, status: 2)
-      @order_4 = create(:order, user: @user_4, status: 2)
-      @order_5 = create(:order, user: @user_5, status: 2)
-      @order_6 = create(:order, user: @user_3, status: 1)
-      @order_7 = create(:order, user: @user_3, status: 0)
+      @user_1 = create(:user, name: 'user_1')
+      @user_1_location = @user_1.locations.create!(name: 'home', state: 'CO', city: 'one', address: '123', zip: '12345')
+      @user_2 = create(:user, name: 'user_2')
+      @user_2_location = @user_2.locations.create!(name: 'home', state: 'CO', city: 'two', address: '123', zip: '12345')
+      @user_3 = create(:user, name: 'user_3')
+      @user_3_location = @user_3.locations.create!(name: 'home', state: 'IL', city: 'one', address: '123', zip: '12345')
+      @user_4 = create(:user, name: 'user_4')
+      @user_4_location = @user_4.locations.create!(name: 'home', state: 'IL', city: 'one', address: '123', zip: '12345')
+      @user_5 = create(:user, name: 'user_5')
+      @user_5_location = @user_5.locations.create!(name: 'home', state: 'CA', city: 'one', address: '123', zip: '12345')
+
+      @order_1 = create(:order, user: @user_1, status: 2, location: @user_1_location )
+      @order_2 = create(:order, user: @user_2, status: 2, location: @user_2_location )
+      @order_3 = create(:order, user: @user_3, status: 2, location: @user_3_location )
+      @order_4 = create(:order, user: @user_4, status: 2, location: @user_4_location )
+      @order_5 = create(:order, user: @user_5, status: 2, location: @user_5_location )
+      @order_6 = create(:order, user: @user_3, status: 1, location: @user_3_location )
+      @order_7 = create(:order, user: @user_3, status: 0, location: @user_3_location )
+
       OrderItem.create!(item: @item_1, order: @order_1, quantity: 12, price: 1.99, fulfilled: false)
       OrderItem.create!(item: @item_2, order: @order_2, quantity: 12, price: 1.99, fulfilled: false)
       OrderItem.create!(item: @item_3, order: @order_3, quantity: 12, price: 1.99, fulfilled: false)

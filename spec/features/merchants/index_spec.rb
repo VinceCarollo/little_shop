@@ -4,10 +4,18 @@ RSpec.describe 'when visiting the merchants index page' do
   describe 'all merchants are visible' do
     describe 'who are active' do
       before :each do
-        @merchant_1 = create(:user, role: 1, created_at: Date.new(1995, 5, 3), city: 'Kansas City', state: "MO")
+        @merchant_1 = create(:user, role: 1, created_at: Date.new(1995, 5, 3))
+        @merchant_1.locations.create!(name: 'home', city: 'Kansas City', state: "MO", address: '123', zip: '12345')
+        
         @merchant_2 = create(:user, role: 1, created_at: Date.new(2015, 12, 8), city: 'Springfield', state: 'CO')
+        @merchant_2.locations.create!(name: 'home', city: 'Springfield', state: "CO", address: '123', zip: '12345')
+
         @merchant_3 = create(:user, role: 1, created_at: Date.new(2002, 9, 10), city: 'Springfield', state: 'MI')
+        @merchant_3.locations.create!(name: 'home', city: 'Springfield', state: "MI", address: '123', zip: '12345')
+
         @merchant_4 = create(:user, role: 1, created_at: Date.new(1955, 3, 21), city: 'Little Rock', state: 'AR')
+        @merchant_4.locations.create!(name: 'home', city: 'Little Rock', state: "AR", address: '123', zip: '12345')
+
         @merchant_5 = create(:user, role: 1, active: false)
         @merchant_6 = create(:user, role: 1, active: false)
         @user = create(:user)
@@ -125,13 +133,13 @@ RSpec.describe 'when visiting the merchants index page' do
     describe 'as an admin ' do
       before :each do
         @admin_1 = User.create!(email: "ron_admin@gmail.com", password: "12345", role: 2, active: true, name: "Ron", address: "1234 Test Rd", city: "Kansas City", state: "MO", zip: '64086')
-  
+
         @m1 = User.create!(email: "jon_mer@gmail.com", password: "12345", role: 1, active: true, name: "Jon a", address: "1234 Test Rd", city: "Kansas City", state: "MO", zip: '64086')
         @m2 = User.create!(email: "ron_mer@gmail.com", password: "12345", role: 1, active: false, name: "Ron b", address: "1234 Test Rd", city: "Kansas City", state: "MO", zip: '64086')
         @user_1 = User.create!(email: "user1@gmail.com", password: "12345", role: 0, active: true, name: "Jon 1", address: "1234 Test Rd", city: "Kansas City", state: "MO", zip: '64086')
         @user_2 = User.create!(email: "user2@gmail.com", password: "12345", role: 0, active: true, name: "Ron 2", address: "1234 Test Rd", city: "Kansas City", state: "MO", zip: '64086')
         @user_3 = User.create!(email: "user3@gmail.com", password: "12345", role: 0, active: true, name: "Jon 3", address: "1234 Test Rd", city: "Kansas City", state: "MO", zip: '64086')
-  
+
         @o1 = Order.create!(user: @user_1, status: 0)
         @o2 = Order.create!(user: @user_1, status: 1)
         @o3 = Order.create!(user: @user_2, status: 2)
@@ -139,7 +147,7 @@ RSpec.describe 'when visiting the merchants index page' do
         @o5 = Order.create!(user: @user_3, status: 0)
         @o6 = Order.create!(user: @user_3, status: 1)
         @o7 = Order.create!(user: @user_3, status: 2)
-  
+
         allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@admin_1)
       end
 

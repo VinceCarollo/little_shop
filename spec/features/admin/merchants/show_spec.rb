@@ -29,8 +29,8 @@ RSpec.describe 'As an admin user' do
 
     it 'has an downgrade link for a merchant' do
       visit "/admin/merchants/#{@merchant_1.id}"
-      
-      
+
+
       expect(current_path).to eq("/admin/merchants/#{@merchant_1.id}")
       expect(page).to have_link("Downgrade to User")
 

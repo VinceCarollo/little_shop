@@ -18,7 +18,7 @@ ActiveRecord::Schema.define(version: 20190601233240) do
   create_table "coupons", force: :cascade do |t|
     t.string "name"
     t.string "code"
-    t.decimal "amount_off"
+    t.integer "amount_off"
     t.boolean "active", default: true
     t.bigint "user_id"
     t.index ["user_id"], name: "index_coupons_on_user_id"

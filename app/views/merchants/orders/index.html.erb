@@ -10,6 +10,22 @@
 <p>State: <%= @user.state %></p>
 <p>Zip Code: <%= @user.zip %></p>
 
+<section id='locations'>
+  <h3>Your Saved Addresses</h3>
+  <%= link_to "Add Address", new_user_location_path(@user)  %>
+  <% @user.locations.each do |location| %>
+    <section id='location-<%= location.id %>'>
+      <h4><%= location.name %></h4>
+      <p>Street: <%= location.address %></p>
+      <p>City: <%= location.city %></p>
+      <p>State: <%= location.state %></p>
+      <p>Zip: <%= location.zip %></p>
+      <p><%= link_to "Delete #{location.name.capitalize}", user_location_path(@user, location), method: :delete  %></p>
+      <p><%= link_to "Edit #{location.name.capitalize}", edit_user_location_path(@user, location) %></p>
+    </section>
+  <% end %>
+</section>
+
 <% if !@user.items.empty? && !@user.top_items_sold(5).empty?  %>
 
 <div class="card merchant-stats" >

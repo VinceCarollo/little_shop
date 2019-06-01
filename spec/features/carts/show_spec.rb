@@ -61,9 +61,13 @@ RSpec.describe 'As a visitor' do
 
       before :each do
         @merchant = create(:user, name: "Merchant", role: 1)
+        @user = create(:user, name: "Buyer", role: 0)
+        @user.locations.create!(name: 'home', address: 'test dr', city: 'testville', state: 'MO', zip: '1234')
         @item_1 = create(:item, user: @merchant)
         @item_2 = create(:item, user: @merchant)
         @item_3 = create(:item, user: @merchant)
+
+        allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@user)
       end
 
 
@@ -294,6 +298,7 @@ describe 'As a registered user' do
   describe 'when viewing my cart with items in it' do
     before :each do
       @user = create(:user, password: 'password')
+      @user.locations.create!(name: 'home', address: 'test dr', city: 'testville', state: 'MO', zip: '1234')
       @merchant = create(:user, name: "Merchant", role: 1)
       @item_1 = create(:item, user: @merchant)
       @item_2 = create(:item, user: @merchant)

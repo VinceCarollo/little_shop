@@ -7,7 +7,7 @@
 <p>City: <%= @user.city %></p>
 <p>State: <%= @user.state %></p>
 <p>Zip Code: <%= @user.zip %></p>
-<%= link_to "Add Location", new_user_location_path(@user)  %>
+<%= link_to "Add Address", new_user_location_path(@user)  %>
 <section id='locations'>
   <h3>Your Saved Addresses</h3>
   <% @user.locations.each do |location| %>

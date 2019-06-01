@@ -63,7 +63,9 @@ class LocationsController < ApplicationController
 
   def order_check(user, location)
     order = user.orders.find_by(location: location)
-    order.update(location_id: nil)
-    order.save
+    if order
+      order.update(location_id: nil)
+      order.save
+    end
   end
 end

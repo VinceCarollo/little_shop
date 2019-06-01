@@ -25,7 +25,7 @@ class Default::OrdersController < Default::BaseController
     cart = Cart.new(session[:cart])
     if cart.contents.empty?
       flash.notice = "Your Cart is Empty"
-      carts_path
+      redirect_to carts_path
     else
       cart.create_order(current_user.id, location)
       session[:cart] = {}

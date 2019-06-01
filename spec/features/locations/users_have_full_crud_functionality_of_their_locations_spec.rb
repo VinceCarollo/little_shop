@@ -97,7 +97,7 @@ RSpec.describe "As a registered User" do
     it 'allows creation of locations' do
       visit profile_path
 
-      click_link "Add Location"
+      click_link "Add Address"
 
       fill_in "Name", with: "School"
       fill_in "Address", with: "123 School Rd."
@@ -105,7 +105,7 @@ RSpec.describe "As a registered User" do
       fill_in "State", with: "MO"
       fill_in "Zip", with: "12345"
 
-      click_button 'Create Location'
+      click_button 'Create Address'
 
       location = Location.last
 

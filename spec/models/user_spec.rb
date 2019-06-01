@@ -237,9 +237,10 @@ RSpec.describe User, type: :model do
     end
 
     it 'pending_orders' do
-      orders = [@order_1, @order_2]
+      orders = [@order_2, @order_1]
 
-      expect(@merchant.pending_orders).to eq(orders)
+      expect(orders).to include(@merchant.pending_orders[0])
+      expect(orders).to include(@merchant.pending_orders[1])
     end
   end
 

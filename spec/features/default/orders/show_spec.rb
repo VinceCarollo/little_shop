@@ -104,4 +104,8 @@ RSpec.describe 'As a Registered User', type: :feature do
       expect(page).to have_content("You can only cancel orders that are pending!")
     end
   end
+
+  describe 'when looking at all order locations' do
+    it 'shows my order address used'
+  end
 end

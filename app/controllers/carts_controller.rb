@@ -4,9 +4,9 @@ class CartsController < ApplicationController
 
   def show
     @user = current_user
-    cart = Cart.new(session[:cart])
-    @cart_items = cart.ids_to_items
-    @cart_price_total = cart.total_price
+    @cart = Cart.new(session[:cart])
+    @cart_items = @cart.ids_to_items
+    @cart_price_total = @cart.total_price
   end
 
   def update

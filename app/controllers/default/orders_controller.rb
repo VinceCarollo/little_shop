@@ -21,11 +21,13 @@ class Default::OrdersController < Default::BaseController
   end
 
   def create
+    location = Location.find_by(user_id: current_user.id, name: params[:location])
     cart = Cart.new(session[:cart])
     if cart.contents.empty?
+      flash.notice = "Your Cart is Empty"
       carts_path
     else
-      cart.create_order(current_user.id)
+      cart.create_order(current_user.id, location)
       session[:cart] = {}
       flash.notice = "Your Order Was Created"
       redirect_to profile_orders_path

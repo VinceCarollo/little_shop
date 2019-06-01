@@ -50,7 +50,20 @@
       </tr>
   </tbody>
 </table>
+
 <% if !current_user.nil? && !current_admin? && !current_merchant? %>
-  <h5 class='text-center'><%= link_to "Checkout", profile_orders_path, method: :post, style:"font-size:35px;" %></h5>
+  <h5 class='text-center'>Choose Address to Checkout with</h5>
+  <%= form_tag(profile_orders_path, method: :post, class: 'text-center') do %>
+      <% @user.locations.each do |location| %>
+        <% if location.name == 'home' %>
+          <%= radio_button_tag 'location', location.name, checked: true %>
+          <%= label_tag location.name %>
+        <% else %>
+          <%= radio_button_tag 'location', location.name %>
+          <%= label_tag location.name %>
+        <% end %>
+      <% end %><br>
+    <%= submit_tag("Checkout", class: 'btn btn-primary') %>
+  <% end %>
 <% end %>
 <h5 class='text-center'><%= link_to "Clear Cart", carts_path, method: :delete %></h5>

@@ -1,7 +1,5 @@
 
-
 <h2><%= @user.name %></h2>
-
 <p>Email: <%= @user.email %></p>
 <p>Role: <%= @user.role %></p>
 <p>Active: <%= @user.active %></p>
@@ -9,6 +7,21 @@
 <p>City: <%= @user.city %></p>
 <p>State: <%= @user.state %></p>
 <p>Zip Code: <%= @user.zip %></p>
+<%= link_to "Add Location", new_user_location_path(@user)  %>
+<section id='locations'>
+  <h3>Your Saved Addresses</h3>
+  <% @user.locations.each do |location| %>
+    <section id='location-<%= location.id %>'>
+      <h4><%= location.name %></h4>
+      <p>Street: <%= location.address %></p>
+      <p>City: <%= location.city %></p>
+      <p>State: <%= location.state %></p>
+      <p>Zip: <%= location.zip %></p>
+      <p><%= link_to "Delete #{location.name.capitalize}", user_location_path(@user, location), method: :delete  %></p>
+      <p><%= link_to "Edit #{location.name.capitalize}", edit_user_location_path(@user, location) %></p>
+    </section>
+  <% end %>
+</section>
 
 <%= link_to "Edit Profile", profile_edit_path %>
 

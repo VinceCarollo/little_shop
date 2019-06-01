@@ -10,6 +10,7 @@ class UsersController < ApplicationController
     @location = Location.new(location_params)
     @location.name = "home"
     @location.user = @user
+    @location.validate!
     if password_confirmation != true
       flash.now[:notice] = "Those passwords don't match."
       render :new

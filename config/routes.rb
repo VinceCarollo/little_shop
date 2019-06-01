@@ -45,4 +45,8 @@ Rails.application.routes.draw do
     patch '/merchant/disable/:id', to: 'merchants#disable'
     resources :orders, only: [:update]
   end
+
+  resources :users, only: [] do
+    resources :locations, only: [:create, :destroy, :edit, :update, :new]
+  end
 end

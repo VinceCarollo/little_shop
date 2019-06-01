@@ -6,13 +6,15 @@ class LocationsController < ApplicationController
   end
 
   def create
-    location = Location.new(location_params)
-    location.user_id = params[:user_id]
-    if location.save
-      flash.notice = "Address #{location.name} has been created"
+    params[:location][:name] = params[:location][:name].downcase
+    @location = Location.new(location_params)
+    @user = User.find(params[:user_id])
+    @location.user_id = @user.id
+    if @location.save
+      flash.notice = "Address #{@location.name} has been created"
       redirect_to profile_path
     else
-      redirect_to profile_path
+      render :new
     end
   end
 

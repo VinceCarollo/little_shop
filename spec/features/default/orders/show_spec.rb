@@ -105,7 +105,30 @@ RSpec.describe 'As a Registered User', type: :feature do
     end
   end
 
-  describe 'when looking at all order locations' do
-    it 'shows my order address used'
+  describe 'when looking at one of my orders' do
+    before :each do
+      @user_1 = User.create!(email: "test1@test.com", password: "pass", role: 0, active: true, name: "Testy McTesterson1")
+      @user_1_home = @user_1.locations.create!(name: 'home', address: '123 Test St', city: "Testville", state: "home", zip: "home" )
+      @user_1_work = @user_1.locations.create!(name: 'work', address: '123 work St', city: "worksvill", state: "work", zip: "work" )
+      @order_1 = Order.create(user: @user_1, status: 1, location: @user_1_work)
+
+      visit login_path
+
+      fill_in "Email", with: 'test1@test.com'
+      fill_in "Password", with: 'pass'
+
+      click_button 'Login'
+    end
+
+    it 'shows the address used on that order' do
+      visit profile_order_path(@order_1)
+
+      expect(page).to have_content("Address Used: #{@user_1_work.name}")
+      expect(page).to have_content(@user_1_work.address)
+      expect(page).to have_content(@user_1_work.city)
+      expect(page).to have_content(@user_1_work.state)
+      expect(page).to have_content(@user_1_work.zip)
+    end
   end
+
 end

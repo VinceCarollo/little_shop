@@ -1,6 +1,6 @@
 class Order < ApplicationRecord
   belongs_to :user
-  belongs_to :location, required: false
+  belongs_to :location, optional: true
 
   has_many :order_items
   has_many :items, through: :order_items

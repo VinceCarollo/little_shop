@@ -2,6 +2,7 @@ class User < ApplicationRecord
   has_many :items
   has_many :orders
   has_many :locations
+  has_many :coupons
 
   validates_presence_of :password_digest, :name
 

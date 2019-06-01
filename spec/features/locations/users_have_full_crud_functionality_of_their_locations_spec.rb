@@ -110,7 +110,7 @@ RSpec.describe "As a registered User" do
       location = Location.last
 
       expect(location.user).to eq(@user_1)
-      expect(location.name).to eq("School")
+      expect(location.name).to eq("school")
 
       expect(current_path).to eq(profile_path)
 

@@ -37,19 +37,21 @@ class User < ApplicationRecord
     self.items
         .joins(:orders)
         .joins("JOIN users ON users.id = orders.user_id")
+        .joins('JOIN locations ON locations.user_id=users.id')
         .where("orders.status=2")
-        .select("sum(order_items.quantity) AS total_ordered, users.state, users.city")
-        .group("users.state")
-        .group("users.city")
+        .select("sum(order_items.quantity) AS total_ordered, locations.state, locations.city")
+        .group("locations.state")
+        .group("locations.city")
         .order("total_ordered desc")
         .limit(3)
   end
 
  def top_3_states
-    User.select("users.state, sum(order_items.quantity) AS total_ordered")
+    User.select("locations.state, sum(order_items.quantity) AS total_ordered")
     .joins(orders: :items)
+    .joins('JOIN locations ON locations.user_id=users.id')
     .where("orders.status = 2 AND items.user_id = #{self.id} ")
-    .group("users.state")
+    .group("locations.state")
     .order("total_ordered DESC")
     .limit(3)
   end
@@ -127,9 +129,10 @@ class User < ApplicationRecord
   def self.top_3_states
     self.joins(items: :order_items)
         .joins('JOIN orders ON order_items.order_id=orders.id')
-        .select('count(orders.*), users.state')
+        .joins('JOIN locations ON locations.user_id=users.id')
+        .select('count(orders.*), locations.state')
         .where('orders.status=2 AND users.role=1')
-        .group(:state)
+        .group('locations.state')
         .order(count: :desc)
         .limit(3)
   end
@@ -137,10 +140,11 @@ class User < ApplicationRecord
   def self.top_3_cities
     self.joins(items: :order_items)
         .joins('JOIN orders ON order_items.order_id=orders.id')
-        .select('count(orders.*), users.state, users.city')
+        .joins('JOIN locations ON locations.user_id=users.id')
+        .select('count(orders.*), locations.state, locations.city')
         .where('orders.status=2 AND users.role=1')
-        .group(:state)
-        .group(:city)
+        .group('locations.state')
+        .group('locations.city')
         .order(count: :desc)
         .limit(3)
   end

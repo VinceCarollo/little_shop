@@ -68,7 +68,7 @@ RSpec.describe 'User can login' do
   context 'As a regular user' do
     describe 'When I visit the login page' do
       before :each do
-        @regular_user = User.create(name: "Regular1", password_digest: @password, role: 0, active: true, address: "88888", city: "Denver", state: "CO", zip: "88888", email: "reg_1@gmail.com")
+        @regular_user = User.create!(name: "Regular1", password_digest: "password", role: 0, active: true, address: "88888", city: "Denver", state: "CO", zip: "88888", email: "reg_1@gmail.com")
         allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@regular_user)
       end
 

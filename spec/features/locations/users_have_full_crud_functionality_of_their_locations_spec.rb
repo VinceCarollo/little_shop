@@ -54,6 +54,75 @@ RSpec.describe "As a registered User" do
         expect(page).to have_content(@user_1_moms.zip)
       end
     end
+
+    it 'allows editing of locations' do
+      visit profile_path
+
+      within "#location-#{@user_1_work.id}" do
+        click_link "Edit #{@user_1_work.name.capitalize}"
+      end
+
+      fill_in "Name", with: "Dads"
+      fill_in "City", with: "Dadsville"
+
+      click_button "Update Location"
+
+      within "#location-#{@user_1_work.id}" do
+        expect(page).to have_content('dads')
+        expect(page).to have_content("Dadsville")
+      end
+
+    end
+
+    it 'does not allow editing of locations if used in completed order' do
+      visit profile_path
+
+      within "#location-#{@user_1_moms.id}" do
+        click_link "Edit #{@user_1_moms.name.capitalize}"
+      end
+
+      expect(current_path).to eq(profile_path)
+      expect(page).to have_content("Your #{@user_1_moms.name} address is being used for a current order and cannot be edited")
+
+      within "#location-#{@user_1_moms.id}" do
+        expect(page).to have_content(@user_1_moms.name)
+        expect(page).to have_content(@user_1_moms.address)
+        expect(page).to have_content(@user_1_moms.city)
+        expect(page).to have_content(@user_1_moms.state)
+        expect(page).to have_content(@user_1_moms.zip)
+      end
+
+    end
+
+    it 'allows creation of locations' do
+      visit profile_path
+
+      click_link "Add Location"
+
+      fill_in "Name", with: "School"
+      fill_in "Address", with: "123 School Rd."
+      fill_in "City", with: "Schoolville"
+      fill_in "State", with: "MO"
+      fill_in "Zip", with: "12345"
+
+      click_button 'Create Location'
+
+      location = Location.last
+
+      expect(location.user).to eq(@user_1)
+      expect(location.name).to eq("School")
+
+      expect(current_path).to eq(profile_path)
+
+      within "#location-#{location.id}" do
+        expect(page).to have_content(location.name)
+        expect(page).to have_content(location.address)
+        expect(page).to have_content(location.city)
+        expect(page).to have_content(location.state)
+        expect(page).to have_content(location.zip)
+      end
+
+    end
   end
 
 end

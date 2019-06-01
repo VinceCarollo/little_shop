@@ -47,6 +47,6 @@ Rails.application.routes.draw do
   end
 
   resources :users, only: [] do
-    resources :locations, only: [:destroy, :edit, :update]
+    resources :locations, only: [:create, :destroy, :edit, :update, :new]
   end
 end

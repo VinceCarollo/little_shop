@@ -43,6 +43,7 @@ swiss = Item.create!(name: "Swiss", price: 2.99, image: 'https://cdn.shopify.com
 
 buyer_1 = User.create!(email: 'buyer1@gmail.com', password: 'password', active: true, name: 'Jason Lovescheese', address: '1234 Test Dr', city: 'Denver', state: 'CO', zip: '80123')
 buyer_1.locations.create!(name: 'home', city: 'Denver', state: 'CO', zip: '80123', address: '1234 Test Dr')
+buyer_1.locations.create!(name: 'away', city: 'Denver', state: 'CO', zip: '80123', address: '1234 Test Dr')
 buyer_2 = User.create!(email: 'buyer2@gmail.com', password: 'password', active: true, name: 'Christina Grater', address: '1234 Test Dr', city: 'Kansas City', state: 'MO', zip: '80123')
 buyer_3 = User.create!(email: 'buyer3@gmail.com', password: 'password', active: true, name: 'Jack Pepper', address: '1234 Test Dr', city: 'Boston', state: 'MA', zip: '80123')
 buyer_4 = User.create!(email: 'buyer4@gmail.com', password: 'password', active: true, name: 'Jason Munster', address: '1234 Test Dr', city: 'Oakland', state: 'CA', zip: '80123')

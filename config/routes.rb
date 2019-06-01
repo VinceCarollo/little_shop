@@ -34,6 +34,7 @@ Rails.application.routes.draw do
     resources :items, only: [:index, :new, :create, :edit, :update, :destroy]
     resources :order_items, only: [:update]
     resources :orders, only: [:show]
+    resources :coupons, only: [:index]
   end
 
   namespace :admin do

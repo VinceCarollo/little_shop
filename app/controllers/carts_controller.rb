@@ -7,6 +7,7 @@ class CartsController < ApplicationController
     @cart = Cart.new(session[:cart])
     @cart_items = @cart.ids_to_items
     @cart_price_total = @cart.total_price
+    @discounted_total = @cart.discounted_price(session[:coupon_id])
   end
 
   def update
@@ -36,6 +37,7 @@ class CartsController < ApplicationController
 
   def clear
     session[:cart] = {}
+    session[:coupon_id] = nil
     redirect_to carts_path
   end
 

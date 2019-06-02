@@ -23,12 +23,14 @@ RSpec.describe 'As a merchant on my dashboard' do
         expect(page).to have_content(@five_off.name)
         expect(page).to have_content(@five_off.code)
         expect(page).to have_content(number_to_currency(@five_off.amount_off))
+        expect(page).to have_content("Active: #{@five_off.active}")
       end
 
       within "#coupon-#{@two_off.id}" do
         expect(page).to have_content(@two_off.name)
         expect(page).to have_content(@two_off.code)
         expect(page).to have_content(number_to_currency(@two_off.amount_off))
+        expect(page).to have_content("Active: #{@two_off.active}")
       end
 
     end
@@ -36,6 +38,19 @@ RSpec.describe 'As a merchant on my dashboard' do
     it 'has a link to create more coupons' do
       click_link "Add a Coupon"
       expect(current_path).to eq(new_dashboard_coupon_path)
+    end
+
+    it 'has links to edit coupons' do
+
+      within "#coupon-#{@five_off.id}" do
+        expect(page).to have_link "Edit #{@five_off.name}"
+      end
+
+      within "#coupon-#{@two_off.id}" do
+        click_link "Edit #{@two_off.name}"
+      end
+
+      expect(current_path).to eq(edit_dashboard_coupon_path(@two_off))
     end
 
   end

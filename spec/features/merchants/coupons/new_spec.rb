@@ -65,4 +65,19 @@ RSpec.describe "As a merchant adding to my coupons" do
     expect(page).to have_content("Sorry, you can have a max of 5 coupons in the system")
   end
 
+  it 'doesnt allow new coupon creation if amount off is not integer' do
+
+    fill_in "Name", with: "One Off"
+    fill_in "Code", with: "1OFF"
+    fill_in "Amount off", with: 'not integer'
+
+    click_button "Create Coupon"
+
+    expect(current_path).to eq(dashboard_coupons_path)
+
+    expect(Coupon.last.name).to_not eq("One Off")
+    expect(Coupon.last.code).to_not eq("1OFF")
+    expect(page).to have_content("Amount off is not a number")
+  end
+
 end

@@ -16,11 +16,13 @@ class CartsController < ApplicationController
     cart = session[:cart]
     if request == "remove_item"
       cart.delete(item_id)
+      coupon_check
     elsif request == "add_one"
       cart[item_id] += 1
     elsif request == "remove_one"
       cart[item_id] -= 1
       cart.delete(item_id) if cart[item_id] == 0
+      coupon_check
     end
 
     redirect_to carts_path
@@ -42,6 +44,17 @@ class CartsController < ApplicationController
   end
 
   private
+
+  def coupon_check
+    if session[:coupon_id]
+      cart = Cart.new(session[:cart])
+      coupon = Coupon.find(session[:coupon_id])
+      merchant_ids = cart.ids_to_items.keys.map{|item| item.user_id}.uniq
+      if !merchant_ids.include?(coupon.user_id)
+        session[:coupon_id] = nil
+      end
+    end
+  end
 
   def cart_user?
     render file: "/public/404" unless !current_admin? && !current_merchant?

@@ -30,7 +30,7 @@ RSpec.describe 'As a registered user while viewing my cart' do
 
     visit carts_path
 
-    fill_in "Coupon Code", with: "5OFF"
+    fill_in "code", with: "5OFF"
     click_button "Add Coupon"
 
     expect(current_path).to eq(carts_path)
@@ -46,7 +46,7 @@ RSpec.describe 'As a registered user while viewing my cart' do
 
     visit carts_path
 
-    fill_in "Coupon Code", with: "some"
+    fill_in "code", with: "some"
     click_button "Add Coupon"
 
     expect(current_path).to eq(carts_path)
@@ -61,10 +61,10 @@ RSpec.describe 'As a registered user while viewing my cart' do
 
     visit carts_path
 
-    fill_in "Coupon Code", with: "2OFF"
+    fill_in "code", with: "2OFF"
     click_button "Add Coupon"
 
-    fill_in "Coupon Code", with: "5OFF"
+    fill_in "code", with: "5OFF"
     click_button "Add Coupon"
 
     expect(current_path).to eq(carts_path)
@@ -81,7 +81,7 @@ RSpec.describe 'As a registered user while viewing my cart' do
 
     visit carts_path
 
-    fill_in "Coupon Code", with: "5OFF"
+    fill_in "code", with: "5OFF"
     click_button "Add Coupon"
 
     expect(page).to have_content("Invalid Coupon")

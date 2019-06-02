@@ -61,8 +61,7 @@
 </table>
 <% if !current_user.nil? && !current_admin? && !current_merchant? && !@cart.contents.empty? && !current_user.locations.empty? %>
   <%= form_tag coupon_path, class: 'text-center' do %>
-    <p><%= label_tag :code, "Coupon Code" %></p>
-    <p><%= text_field_tag :code %></p>
+    <p><%= text_field_tag :code, nil, placeholder: "COUPON CODE" %></p>
     <p><%= submit_tag "Add Coupon" %></p>
   <% end %>
   <h5 class='text-center'>Choose Address to Checkout with</h5>

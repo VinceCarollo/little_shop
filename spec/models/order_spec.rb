@@ -5,7 +5,8 @@ RSpec.describe Order, type: :model do
 
   describe 'relationships' do
     it { should belong_to :user }
-    it { should have_many :items}
+    it { should belong_to(:coupon).optional }
+    it { should have_many :items }
   end
 
   describe 'validations' do

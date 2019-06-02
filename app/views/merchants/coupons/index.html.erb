@@ -1,0 +1,14 @@
+<h1><%= @user.name %>'s Coupons</h1>
+<p><%= link_to "Add a Coupon", new_dashboard_coupon_path %></p>
+<% @user.coupons.each do |coupon| %>
+  <section id='coupon-<%= coupon.id %>'>
+    <h5><%= coupon.name %></h5>
+    <p>Code: <%= coupon.code %></p>
+    <p>Amount Off: <%= number_to_currency(coupon.amount_off) %></p>
+    <p>Active: <%= coupon.active %></p>
+    <p><%= link_to "Disable #{coupon.name}", dashboard_coupon_disable_path(coupon), method: :patch %></p>
+    <p><%= link_to "Enable #{coupon.name}", dashboard_coupon_enable_path(coupon), method: :patch %></p>
+    <p><%= link_to "Edit #{coupon.name}", edit_dashboard_coupon_path(coupon) %></p>
+    <p><%= link_to "Delete #{coupon.name}", dashboard_coupon_path(coupon), method: :delete %></p>
+  </section>
+<% end %>

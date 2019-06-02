@@ -73,6 +73,14 @@ RSpec.describe 'Merchant show page', type: :feature do
         expect(page).to have_content("Item Id: #{@item_3.id}")
         expect(page).to have_content("Item Id: #{@item_4.id}")
       end
+
+      it 'has a link to take me to my coupons page' do
+        visit dashboard_path
+
+        click_link "View My Coupons"
+
+        expect(current_path).to eq(dashboard_coupons_path)
+      end
     end
   end
 end

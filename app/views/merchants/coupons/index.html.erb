@@ -1,0 +1,9 @@
+<h1><%= @user.name %>'s Coupons</h1>
+<p><%= link_to "Add a Coupon", new_dashboard_coupon_path %></p>
+<% @user.coupons.each do |coupon| %>
+  <section id='coupon-<%= coupon.id %>'>
+    <h5><%= coupon.name %></h5>
+    <p>Code: <%= coupon.code %></p>
+    <p>Amount Off: <%= number_to_currency(coupon.amount_off) %></p>
+  </section>
+<% end %>

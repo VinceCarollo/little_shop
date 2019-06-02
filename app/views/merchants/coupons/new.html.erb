@@ -1,0 +1,17 @@
+<h1>Creating Coupon for <%= @user.name %></h1>
+<% @coupon.errors.full_messages.each do |msg| %>
+  <p><%= msg %></p>
+<% end %>
+
+<%= form_for ['dashboard', @coupon] do |f| %>
+  <%= f.label :name %>
+  <%= f.text_field :name %><br>
+
+  <%= f.label :code %>
+  <%= f.text_field :code %><br>
+
+  <%= f.label :amount_off %>
+  <%= f.text_field :amount_off %><br>
+
+  <%= f.submit %>
+<% end %>

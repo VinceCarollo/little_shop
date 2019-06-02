@@ -22,6 +22,13 @@ class Cart
     ids_to_items.sum{|item, qty| item.price * qty}
   end
 
+  def discounted_price(coupon_id)
+    if coupon_id
+      coupon = Coupon.find(coupon_id)
+      total_price - coupon.amount_off
+    end
+  end
+
   def create_order(buyer_id, location=nil)
     order = Order.new(user_id: buyer_id, status: 1)
     order.location = location if !location.nil?
@@ -31,4 +38,5 @@ class Cart
     end
     order.save
   end
+
 end

@@ -52,4 +52,6 @@ Rails.application.routes.draw do
   resources :users, only: [] do
     resources :locations, only: [:create, :destroy, :edit, :update, :new]
   end
+
+  post '/coupon', to: 'coupons#add'
 end

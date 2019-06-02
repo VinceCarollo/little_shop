@@ -48,9 +48,23 @@
         <td>Total: </td>
         <td colspan="5"><%= number_to_currency(@cart_price_total) %></td>
       </tr>
+      <% if @discounted_total %>
+        <tr class='text-center' id='cart_total'>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td style='color:red;'>Discounted: </td>
+          <td colspan="5" style='color:red;'><%= number_to_currency(@discounted_total) %></td>
+        </tr>
+      <% end %>
   </tbody>
 </table>
 <% if !current_user.nil? && !current_admin? && !current_merchant? && !@cart.contents.empty? && !current_user.locations.empty? %>
+  <%= form_tag coupon_path, class: 'text-center' do %>
+    <p><%= label_tag :code, "Coupon Code" %></p>
+    <p><%= text_field_tag :code %></p>
+    <p><%= submit_tag "Add Coupon" %></p>
+  <% end %>
   <h5 class='text-center'>Choose Address to Checkout with</h5>
   <%= form_tag(profile_orders_path, method: :post, class: 'text-center') do %>
       <% @user.locations.each do |location| %>
@@ -66,6 +80,8 @@
   <% end %>
   <h5 class='text-center'><%= link_to "Clear Cart", carts_path, method: :delete %></h5>
 <% end %>
+
+
 
 <% if !current_user.nil? && current_user.locations.empty? %>
   <h6 class='text-center' style="color: red;">**You must make an address before checking out**</h6>

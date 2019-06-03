@@ -7,14 +7,13 @@ class UsersController < ApplicationController
 
   def create
     @user = User.new(user_params)
-    @location = Location.new(location_params)
+    @location = @user.locations.new(location_params)
     @location.name = "home"
-    @location.user = @user
-    @location.validate!
+    @location.save
     if password_confirmation != true
       flash.now[:notice] = "Those passwords don't match."
       render :new
-    elsif @user.save && @location.save
+    elsif @user.save
       session[:user_id] = @user.id
       flash[:notice] = "You are now registered and logged in."
       redirect_to profile_path
@@ -38,7 +37,7 @@ class UsersController < ApplicationController
   end
 
   def location_params
-    params.require(:user).permit(:address, :city, :state, :zip)
+    params.require(:user).require(:location).permit(:address, :city, :state, :zip)
   end
 
 end

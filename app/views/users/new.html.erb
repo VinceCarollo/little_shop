@@ -9,17 +9,21 @@
 <p><%= f.label :name %></p>
 <%= f.text_field :name %>
 
-<p><%= f.label :address %></p>
-<%= f.text_field :address %>
+<%= f.fields_for :location do |location| %>
 
-<p><%= f.label :city %></p>
-<%= f.text_field :city %>
+  <p><%= location.label :address %></p>
+  <%= location.text_field :address %>
 
-<p><%= f.label :state %></p>
-<%= f.text_field :state %>
+  <p><%= location.label :city %></p>
+  <%= location.text_field :city %>
 
-<p><%= f.label :zip %></p>
-<%= f.text_field :zip %>
+  <p><%= location.label :state %></p>
+  <%= location.text_field :state %>
+
+  <p><%= location.label :zip %></p>
+  <%= location.text_field :zip %>
+
+<% end %>
 
 <p><%= f.label :email %></p>
 <%= f.text_field :email %>

@@ -1,6 +1,6 @@
 class Order < ApplicationRecord
   belongs_to :user
-  belongs_to :coupon, required: false
+  belongs_to :coupon, optional: true
   belongs_to :location, optional: true
 
   has_many :order_items

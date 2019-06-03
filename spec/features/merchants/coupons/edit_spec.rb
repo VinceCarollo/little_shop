@@ -74,4 +74,18 @@ RSpec.describe 'As a merchant viewing my coupons' do
     expect(page).to_not have_content(@two_off.code)
   end
 
+  it 'cant create coupon with string as amount' do
+
+    within "#coupon-#{@two_off.id}" do
+      click_link "Edit #{@two_off.name}"
+    end
+
+    fill_in "Amount off", with: "dsgs"
+
+    click_button "Update Coupon"
+
+    expect(current_path).to eq(dashboard_coupon_path(@two_off))
+    expect(page).to have_content("Amount off is not a number")
+  end
+
 end

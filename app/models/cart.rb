@@ -25,7 +25,11 @@ class Cart
   def discounted_price(coupon_id)
     if coupon_id
       coupon = Coupon.find(coupon_id)
-      total_price - coupon.amount_off
+      if total_price < coupon.amount_off
+        0
+      else
+        total_price - coupon.amount_off
+      end
     end
   end
 
@@ -36,7 +40,7 @@ class Cart
       order.coupon = coupon
       discounted_item = ids_to_items.find{|item, qty| item.id = coupon.user_id}[0]
       if coupon.amount_off > discounted_item.price
-        discounted_price.price = 0
+        discounted_item.price = 0
       else
         discounted_item.price -= coupon.amount_off
       end
@@ -47,5 +51,4 @@ class Cart
     end
     order.save
   end
-
 end

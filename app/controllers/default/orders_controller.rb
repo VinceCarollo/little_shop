@@ -26,6 +26,13 @@ class Default::OrdersController < Default::BaseController
     if cart.contents.empty?
       flash.notice = "Your Cart is Empty"
       redirect_to carts_path
+    elsif session[:coupon_id]
+      coupon = Coupon.find(session[:coupon_id])
+      cart.create_order(current_user.id, location, coupon)
+      session[:cart] = {}
+      session[:coupon_id] = nil
+      flash.notice = "Your Order Was Created"
+      redirect_to profile_orders_path
     else
       cart.create_order(current_user.id, location)
       session[:cart] = {}

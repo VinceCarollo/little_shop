@@ -35,7 +35,7 @@ RSpec.describe 'As a registered user while viewing my cart' do
 
     expect(current_path).to eq(carts_path)
     expect(page).to have_content("The coupon #{@merchant_1_coup_1.name} has been added to your order")
-    expect(page).to have_content("Discounted: $#{@item_1.price - @merchant_1_coup_1.amount_off}")
+    expect(page).to have_content("Discounted Total: $#{@item_1.price - @merchant_1_coup_1.amount_off}")
   end
 
   it 'doesnt allow coupons that dont exist' do
@@ -48,7 +48,6 @@ RSpec.describe 'As a registered user while viewing my cart' do
 
     fill_in "code", with: "some"
     click_button "Add Coupon"
-
     expect(current_path).to eq(carts_path)
     expect(page).to have_content("Invalid Coupon")
   end
@@ -69,7 +68,7 @@ RSpec.describe 'As a registered user while viewing my cart' do
 
     expect(current_path).to eq(carts_path)
     expect(page).to have_content("The coupon #{@merchant_1_coup_1.name} has been added to your order")
-    expect(page).to have_content("Discounted: $#{@item_1.price - @merchant_1_coup_1.amount_off}")
+    expect(page).to have_content("Discounted Total: $#{@item_1.price - @merchant_1_coup_1.amount_off}")
   end
 
   it 'only applies coupon to that merchants items' do
@@ -85,6 +84,33 @@ RSpec.describe 'As a registered user while viewing my cart' do
     click_button "Add Coupon"
 
     expect(page).to have_content("Invalid Coupon")
-    expect(page).to_not have_content("Discounted:")
+    expect(page).to_not have_content("Discounted Total:")
+  end
+
+  it 'can only be used once per user' do
+    visit items_path
+    within "#item-#{@item_1.id}" do
+      click_link "Add To Cart"
+    end
+
+    visit carts_path
+
+    fill_in "code", with: "5OFF"
+    click_button "Add Coupon"
+
+    click_button "Checkout"
+
+    visit items_path
+    within "#item-#{@item_2.id}" do
+      click_link "Add To Cart"
+    end
+
+    visit carts_path
+
+    fill_in "code", with: "5OFF"
+    click_button "Add Coupon"
+
+    expect(page).to_not have_content("Discounted Total:")
+    expect(page).to have_content("You have already used this coupon")
   end
 end

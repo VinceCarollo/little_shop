@@ -25,18 +25,30 @@ class Cart
   def discounted_price(coupon_id)
     if coupon_id
       coupon = Coupon.find(coupon_id)
-      total_price - coupon.amount_off
+      if total_price < coupon.amount_off
+        0
+      else
+        total_price - coupon.amount_off
+      end
     end
   end
 
-  def create_order(buyer_id, location=nil)
+  def create_order(buyer_id, location=nil, coupon=nil)
     order = Order.new(user_id: buyer_id, status: 1)
     order.location = location if !location.nil?
+    if coupon
+      order.coupon = coupon
+      discounted_item = ids_to_items.find{|item, qty| item.id = coupon.user_id}[0]
+      if coupon.amount_off > discounted_item.price
+        discounted_item.price = 0
+      else
+        discounted_item.price -= coupon.amount_off
+      end
+    end
     ids_to_items.each do |item, qty|
       oi = OrderItem.new(item: item, order: order, quantity: qty, price: item.price, fulfilled: false )
       oi.save
     end
     order.save
   end
-
 end

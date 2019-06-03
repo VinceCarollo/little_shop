@@ -55,7 +55,17 @@
           <% end %>
         </div>
         <ul class="list-group list-group-flush">
-          <li class="list-group-item text-center">Location: <%= merchant.city %>, <%= merchant.state %></li>
+          <li class="list-group-item text-center">
+            <% if !merchant.locations.empty? %>
+              <% merchant.locations.each do |location| %>
+                <h6><%= location.name %></h6>
+                <p><%= location.address %>
+                <%= location.city %>
+                <%= location.state %>
+                <%= location.zip %></p>
+              <% end %>
+            <% end %>
+          </li>
           <li class="list-group-item text-center">Joined: <%= merchant.created_at.strftime("%B %d, %Y") %></li>
           <% if current_admin? && merchant.active? %>
             <li class="list-group-item text-center"><%= link_to "Disable", "/admin/merchant/disable/#{merchant.id}", :method=> :patch %></li>

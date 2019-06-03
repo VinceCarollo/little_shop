@@ -87,4 +87,31 @@ RSpec.describe 'As a registered user while viewing my cart' do
     expect(page).to have_content("Invalid Coupon")
     expect(page).to_not have_content("Discounted:")
   end
+
+  it 'can only be used once per user' do
+    visit items_path
+    within "#item-#{@item_1.id}" do
+      click_link "Add To Cart"
+    end
+
+    visit carts_path
+
+    fill_in "code", with: "5OFF"
+    click_button "Add Coupon"
+
+    click_button "Checkout"
+
+    visit items_path
+    within "#item-#{@item_2.id}" do
+      click_link "Add To Cart"
+    end
+
+    visit carts_path
+
+    fill_in "code", with: "5OFF"
+    click_button "Add Coupon"
+
+    expect(page).to_not have_content("Discounted:")
+    expect(page).to have_content("You have already used this coupon")
+  end
 end

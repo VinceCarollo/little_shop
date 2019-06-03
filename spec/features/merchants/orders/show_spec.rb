@@ -97,3 +97,60 @@ RSpec.describe 'As a merchant', type: :feature do
     end
   end
 end
+
+describe 'As a merchant' do
+  describe 'When I visit an order show page from my Dasboard' do
+    include ActionView::Helpers::NumberHelper
+
+    before :each do
+      @user_1 = User.create!(email: "test1@example.com", password: "pass", role: 0, active: true, name: "Testy McTesterson1")
+      @user_1_home = @user_1.locations.create!(name: 'home', address: '123 Test St', city: "Testville", state: "home", zip: "home" )
+      @user_1_work = @user_1.locations.create!(name: 'work', address: '123 work St', city: "worksvill", state: "work", zip: "work" )
+      @merchant = User.create!(name: 'Merchant', email: 'merc@example.com', password: 'pass', role: 1)
+      @merchant.locations.create!(name: 'home', address: '123 test', city: 'KC', state: 'mo', zip: '12345')
+      @coupon = @merchant.coupons.create!(name: '10 Off', code: '10OFF', amount_off: 10)
+      @order_1 = Order.create(user: @user_1, status: 1, location: @user_1_work)
+      @item_1 = create(:item, user: @merchant)
+      @item_2 = create(:item, user: @merchant)
+      @item_3 = create(:item, user: @merchant)
+
+      visit login_path
+
+      fill_in "Email", with: 'test1@example.com'
+      fill_in "Password", with: 'pass'
+
+      click_button 'Login'
+      click_link "Cheese"
+
+      within "#item-#{@item_1.id}" do
+        click_link "Add To Cart"
+      end
+
+      within "#item-#{@item_2.id}" do
+        click_link "Add To Cart"
+        click_link "Add To Cart"
+      end
+
+      click_link "Cart"
+
+      fill_in "code", with: '10OFF'
+      click_button "Add Coupon"
+      click_button "Checkout"
+      click_link "Logout"
+      click_link "Login"
+
+      fill_in "Email", with: 'merc@example.com'
+      fill_in "Password", with: 'pass'
+      click_button "Login"
+    end
+
+    it 'shows coupon used on order' do
+      order = Order.last
+      coupon = Coupon.last
+      visit dashboard_order_path(order)
+      
+      expect(page).to have_content("Coupon Used: #{coupon.name}")
+      expect(page).to have_content("Amount Discounted: #{number_to_currency(coupon.amount_off)}")
+    end
+  end
+end

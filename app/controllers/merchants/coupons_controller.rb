@@ -28,6 +28,7 @@ class Merchants::CouponsController < Merchants::BaseController
   end
 
   def update
+    @user = current_user
     @coupon = Coupon.find(params[:id])
     @coupon.update(coupon_params)
     if @coupon.save

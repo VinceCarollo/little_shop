@@ -24,6 +24,10 @@ class CouponsController < ApplicationController
   end
 
   def has_been_used?(coupon)
-    current_user.orders.any?{|order| order.coupon == coupon}
+    if coupon.nil?
+      false
+    else
+      current_user.orders.any?{|order| order.coupon == coupon}
+    end
   end
 end

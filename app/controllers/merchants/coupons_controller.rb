@@ -53,11 +53,22 @@ class Merchants::CouponsController < Merchants::BaseController
   end
 
   def destroy
-    Coupon.destroy(params[:id])
-    redirect_to dashboard_coupons_path
+    coupon = Coupon.find(params[:id])
+    if been_used?(coupon)
+      flash.notice = "That coupon is being used for an order and cannot be deleted"
+      redirect_to dashboard_coupons_path
+    else
+      coupon.destroy
+      redirect_to dashboard_coupons_path
+    end
   end
 
   private
+
+  def been_used?(coupon)
+    all_orders = Order.all
+    all_orders.any?{|order| order.coupon == coupon}
+  end
 
   def coupon_params
     params.require(:coupon).permit(:name, :code, :amount_off)

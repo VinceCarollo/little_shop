@@ -88,4 +88,23 @@ RSpec.describe 'As a merchant viewing my coupons' do
     expect(page).to have_content("Amount off is not a number")
   end
 
+  it 'doesnt allow me to edit a coupon to the same name as another' do
+
+    within "#coupon-#{@two_off.id}" do
+      click_link "Edit #{@two_off.name}"
+    end
+
+    fill_in "Name", with: "Five Off"
+    fill_in "Code", with: "someelse"
+    fill_in "Amount off", with: '1'
+
+    click_button "Update Coupon"
+
+    coupon = Coupon.last
+    expect(coupon.code).to_not eq("someelse")
+
+    expect(current_path).to eq(dashboard_coupon_path(@two_off))
+    expect(page).to have_content("Name has already been taken")
+  end
+
 end

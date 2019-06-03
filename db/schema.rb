@@ -77,10 +77,6 @@ ActiveRecord::Schema.define(version: 20190602234921) do
     t.integer "role", default: 0
     t.boolean "active", default: true
     t.string "name"
-    t.string "address"
-    t.string "city"
-    t.string "state"
-    t.string "zip"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

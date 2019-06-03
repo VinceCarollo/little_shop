@@ -11,21 +11,21 @@ OrderItem.destroy_all
 Item.destroy_all
 User.destroy_all
 
-merchant_1 = User.create!(email: "ron@gmail.com", password: "12345", role: 1, active: true, name: "Ron", address: "1234 Test Rd", city: "Kansas City", state: "MO", zip: '64086')
+merchant_1 = User.create!(email: "ron@gmail.com", password: "12345", role: 1, active: true, name: "Ron")
 merchant_1.locations.create!(name: 'home', address: "1234 Test Rd", city: "Kansas City", state: "MO", zip: '64086')
 merchant_1.coupons.create!(name: '1 Off', code: "1OFF", amount_off: 1)
 merchant_1.coupons.create!(name: '30 Off', code: "30OFF", amount_off: 30)
-merchant_2 = User.create!(email: "jon@gmail.com", password: "12345", role: 1, active: true, name: "Jon", address: "1234 Test Rd", city: "Kansas City", state: "MO", zip: '64086')
+merchant_2 = User.create!(email: "jon@gmail.com", password: "12345", role: 1, active: true, name: "Jon")
 merchant_2.locations.create!(name: 'home', address: "1234 Test Rd", city: "Kansas City", state: "MO", zip: '64086')
-merchant_3 = User.create!(email: "sarahm334@gmail.com", password: "12345", role: 1, active: true, name: "Sarah Mandy", address: "5436 Longstooth drive", city: "Portland", state: "OR", zip: '72722')
+merchant_3 = User.create!(email: "sarahm334@gmail.com", password: "12345", role: 1, active: true, name: "Sarah Mandy")
 merchant_3.locations.create!(name: 'home', address: "5436 Longstooth drive", city: "Portland", state: "OR", zip: '72722')
-merchant_4 = User.create!(email: "phillipe33@gmail.com", password: "12345", role: 1, active: true, name: "Phillipe Hernandez", address: "9292 Very Humid Drive", city: "Houston", state: "TX", zip: '22353')
+merchant_4 = User.create!(email: "phillipe33@gmail.com", password: "12345", role: 1, active: true, name: "Phillipe Hernandez")
 merchant_4.locations.create!(name: 'home', address: "9292 Very Humid Drive", city: "Houston", state: "TX", zip: '22353')
-merchant_5 = User.create!(email: "lareza9@gmail.com", password: "12345", role: 1, active: true, name: "Lareza Samuel", address: "Month Rd", city: "Kalamazoo", state: "MI", zip: '22222')
+merchant_5 = User.create!(email: "lareza9@gmail.com", password: "12345", role: 1, active: true, name: "Lareza Samuel")
 merchant_5.locations.create!(name: "home", address: "Month Rd", city: "Kalamazoo", state: "MI", zip: '22222')
-merchant_6 = User.create!(email: "emilygill@gmail.com", password: "12345", role: 1, active: true, name: "Emily Gill", address: "2352 Moon Light Lane", city: "Chicago", state: "IL", zip: '23636')
+merchant_6 = User.create!(email: "emilygill@gmail.com", password: "12345", role: 1, active: true, name: "Emily Gill")
 merchant_6.locations.create!(name: 'home', address: "2352 Moon Light Lane", city: "Chicago", state: "IL", zip: '23636')
-merchant_7 = User.create!(email: "papajame@gmail.com", password: "12345", role: 1, active: true, name: "Papa James", address: "1 Lark Hill ln", city: "Cleveland", state: "OH", zip: '38301')
+merchant_7 = User.create!(email: "papajame@gmail.com", password: "12345", role: 1, active: true, name: "Papa James")
 merchant_7.locations.create!(name: 'home', address: "1 Lark Hill ln", city: "Cleveland", state: "OH", zip: '38301')
 admin_1 = User.create!(email: "admin", password: "12345", role: 2, active: true, name: "Jake")
 

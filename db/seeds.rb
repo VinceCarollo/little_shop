@@ -14,6 +14,7 @@ User.destroy_all
 merchant_1 = User.create!(email: "ron@gmail.com", password: "12345", role: 1, active: true, name: "Ron", address: "1234 Test Rd", city: "Kansas City", state: "MO", zip: '64086')
 merchant_1.locations.create!(name: 'home', address: "1234 Test Rd", city: "Kansas City", state: "MO", zip: '64086')
 merchant_1.coupons.create!(name: '1 Off', code: "1OFF", amount_off: 1)
+merchant_1.coupons.create!(name: '30 Off', code: "30OFF", amount_off: 30)
 merchant_2 = User.create!(email: "jon@gmail.com", password: "12345", role: 1, active: true, name: "Jon", address: "1234 Test Rd", city: "Kansas City", state: "MO", zip: '64086')
 merchant_2.locations.create!(name: 'home', address: "1234 Test Rd", city: "Kansas City", state: "MO", zip: '64086')
 merchant_3 = User.create!(email: "sarahm334@gmail.com", password: "12345", role: 1, active: true, name: "Sarah Mandy", address: "5436 Longstooth drive", city: "Portland", state: "OR", zip: '72722')

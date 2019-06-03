@@ -80,4 +80,37 @@ RSpec.describe "As a merchant adding to my coupons" do
     expect(page).to have_content("Amount off is not a number")
   end
 
+  it 'doesnt allow me to make coupon with same name' do
+
+    fill_in "Name", with: "One Off"
+    fill_in "Code", with: "1OFF"
+    fill_in "Amount off", with: '1'
+
+    click_button "Create Coupon"
+    expect(current_path).to eq(dashboard_coupons_path)
+
+    coupon = Coupon.last
+    expect(@merchant.coupons).to include(coupon)
+
+    within "#coupon-#{coupon.id}" do
+      expect(page).to have_content(coupon.name)
+      expect(page).to have_content(coupon.code)
+      expect(page).to have_content(number_to_currency(coupon.amount_off))
+    end
+
+    click_link "Add a Coupon"
+
+    fill_in "Name", with: "One Off"
+    fill_in "Code", with: "someelse"
+    fill_in "Amount off", with: '1'
+
+    click_button "Create Coupon"
+
+    coupon = Coupon.last
+    expect(coupon.code).to_not eq("someelse")
+
+    expect(current_path).to eq(dashboard_coupons_path)
+    expect(page).to have_content("Name has already been taken")
+  end
+
 end

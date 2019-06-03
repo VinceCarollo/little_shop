@@ -22,10 +22,14 @@
   <p><%= @order.location.state %></p>
   <p><%= @order.location.zip %></p>
 <% end %>
-
 <p>Number of Items: <%= @order.item_count %></p>
-<p>Grand Total: <%= number_to_currency(@order.grand_total, unit: "$") %></p>
-
+<% if @order.coupon %>
+  <p>Coupon Used: <%= @order.coupon.name %></p>
+  <p>Amount Discounted: <%= number_to_currency(@order.coupon.amount_off) %></p>
+  <p>Grand Total: <%= number_to_currency(@order.grand_total - @order.coupon.amount_off) %> (with coupon)</p>
+<% else %>
+  <p>Grand Total: <%= number_to_currency(@order.grand_total, unit: "$") %></p>
+<% end %>
 
 <%= button_to "Cancel Order", profile_order_path(@order), method: "delete", disabled: !@order.pending? %>
 <% if !@order.pending? %>

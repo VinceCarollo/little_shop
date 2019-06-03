@@ -106,11 +106,17 @@ RSpec.describe 'As a Registered User', type: :feature do
   end
 
   describe 'when looking at one of my orders' do
+    include ActionView::Helpers::NumberHelper
     before :each do
       @user_1 = User.create!(email: "test1@test.com", password: "pass", role: 0, active: true, name: "Testy McTesterson1")
       @user_1_home = @user_1.locations.create!(name: 'home', address: '123 Test St', city: "Testville", state: "home", zip: "home" )
       @user_1_work = @user_1.locations.create!(name: 'work', address: '123 work St', city: "worksvill", state: "work", zip: "work" )
+      @merchant = User.create!(name: 'Merchant', email: 'merc@test.com', password: 'pass', role: 1)
+      @coupon = @merchant.coupons.create!(name: '20 Off', code: '20OFF', amount_off: 20)
       @order_1 = Order.create(user: @user_1, status: 1, location: @user_1_work)
+      @item_1 = create(:item, user: @merchant)
+      @item_2 = create(:item, user: @merchant)
+      @item_3 = create(:item, user: @merchant)
 
       visit login_path
 
@@ -118,16 +124,43 @@ RSpec.describe 'As a Registered User', type: :feature do
       fill_in "Password", with: 'pass'
 
       click_button 'Login'
+
+      click_link "Cheese"
+
+      within "#item-#{@item_1.id}" do
+        click_link "Add To Cart"
+      end
+
+      within "#item-#{@item_2.id}" do
+        click_link "Add To Cart"
+        click_link "Add To Cart"
+      end
+
+      click_link "Cart"
+
+      fill_in "code", with: '20OFF'
+      click_button "Add Coupon"
+      click_button "Checkout"
     end
 
     it 'shows the address used on that order' do
       visit profile_order_path(@order_1)
-
       expect(page).to have_content("Address Used: #{@user_1_work.name}")
       expect(page).to have_content(@user_1_work.address)
       expect(page).to have_content(@user_1_work.city)
       expect(page).to have_content(@user_1_work.state)
       expect(page).to have_content(@user_1_work.zip)
+    end
+
+    it 'shows the coupon used on order' do
+      order = Order.last
+      total = @item_2.price * 2 + @item_1.price - @coupon.amount_off
+
+      visit profile_order_path(order)
+
+      expect(page).to have_content("Coupon Used: #{@coupon.name}")
+      expect(page).to have_content("Amount Discounted: #{number_to_currency(@coupon.amount_off)}")
+      expect(page).to have_content("Grand Total: #{number_to_currency(total)}")
     end
   end
 

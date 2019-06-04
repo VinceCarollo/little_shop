@@ -32,6 +32,37 @@ RSpec.describe 'As a user with an order in the system' do
       @order.status = 0
       @order.save
       @order.reload
+      
+      visit profile_order_path(@order)
+
+      click_link "Change Order Address"
+
+      find(:css, "#location_work[value='work']").click
+
+      click_button "Change Address"
+      expect(current_path).to eq(profile_order_path(@order))
+      expect(page).to have_content("This Order's address cannot be changed")
+      expect(page).to have_content("Address Used: home")
+
+      @order.status = 2
+      @order.save
+      @order.reload
+
+      visit profile_order_path(@order)
+
+      click_link "Change Order Address"
+
+      find(:css, "#location_work[value='work']").click
+
+      click_button "Change Address"
+      expect(current_path).to eq(profile_order_path(@order))
+      expect(page).to have_content("This Order's address cannot be changed")
+      expect(page).to have_content("Address Used: home")
+
+      @order.status = 3
+      @order.save
+      @order.reload
+
       visit profile_order_path(@order)
 
       click_link "Change Order Address"

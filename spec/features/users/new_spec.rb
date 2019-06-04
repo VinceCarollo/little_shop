@@ -5,7 +5,7 @@ RSpec.describe 'New user form' do
     describe 'When I visit the register new register link' do
 
       before :each do
-        @user_1 = User.create!(name: "default_user", role: 0, active: true, password_digest: "8320280282", address: "333", city: "Denver", state: "CO", zip: "80000", email: "default_user@gmail.com" )
+        @user_1 = User.create!(name: "default_user", role: 0, active: true, password_digest: "8320280282", email: "default_user@gmail.com" )
       end
 
       it 'I can register as a new user' do
@@ -55,7 +55,7 @@ RSpec.describe 'New user form' do
 
 
       it 'Can not use an already used email address' do
-        user_2 = User.create!(name: "User_1", role: 0, active: true, password_digest: "8320280282", address: "333", city: "Denver", zip: "80000", email: "user_1@gmail.com", state: 'IL' )
+        user_2 = User.create!(name: "User_1", role: 0, active: true, password_digest: "8320280282", email: "user_1@gmail.com")
 
         visit register_path
 

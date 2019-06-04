@@ -5,7 +5,7 @@ RSpec.describe 'As a Registered User', type: :feature do
 
   describe 'When I visit of my Orders show pages' do
     before :each do
-      @user = User.create!(email: "test@test.com", password_digest: "t3s7", role: 0, active: true, name: "Testy McTesterson", address: "123 Test St", city: "Testville", state: "Test", zip: "01234")
+      @user = User.create!(email: "test@test.com", password_digest: "t3s7", role: 0, active: true, name: "Testy McTesterson")
 
       @merchant_1 = create(:user)
       @merchant_2 = create(:user)

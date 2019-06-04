@@ -4,7 +4,7 @@ RSpec.describe 'As a registered User', type: :feature do
   context 'Default user' do
     describe 'And I click the link to edit my profile' do
       before :each do
-        @user = User.create!(email: "test@test.com", password_digest: "t3s7", role: 0, active: true, name: "Testy McTesterson", address: "123 Test St", city: "Testville", state: "Test", zip: "01234")
+        @user = User.create!(email: "test@test.com", password_digest: "t3s7", role: 0, active: true, name: "Testy McTesterson")
 
         allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@user)
       end
@@ -83,7 +83,7 @@ RSpec.describe 'As a registered User', type: :feature do
       end
 
       it 'Will not allow an already existing users email' do
-        other_user = User.create!(email: "test@test.net", password_digest: "t3s7", role: 1, active: true, name: "Testy McTesterson", address: "123 Test St", city: "Testville", state: "Test", zip: "01234")
+        other_user = User.create!(email: "test@test.net", password_digest: "t3s7", role: 1, active: true, name: "Testy McTesterson")
 
         visit profile_edit_path
 

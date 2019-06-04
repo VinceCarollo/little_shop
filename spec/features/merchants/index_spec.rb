@@ -6,14 +6,14 @@ RSpec.describe 'when visiting the merchants index page' do
       before :each do
         @merchant_1 = create(:user, role: 1, created_at: Date.new(1995, 5, 3))
         @merchant_1.locations.create!(name: 'home', city: 'Kansas City', state: "MO", address: '123', zip: '12345')
-        
-        @merchant_2 = create(:user, role: 1, created_at: Date.new(2015, 12, 8), city: 'Springfield', state: 'CO')
+
+        @merchant_2 = create(:user, role: 1, created_at: Date.new(2015, 12, 8))
         @merchant_2.locations.create!(name: 'home', city: 'Springfield', state: "CO", address: '123', zip: '12345')
 
-        @merchant_3 = create(:user, role: 1, created_at: Date.new(2002, 9, 10), city: 'Springfield', state: 'MI')
+        @merchant_3 = create(:user, role: 1, created_at: Date.new(2002, 9, 10))
         @merchant_3.locations.create!(name: 'home', city: 'Springfield', state: "MI", address: '123', zip: '12345')
 
-        @merchant_4 = create(:user, role: 1, created_at: Date.new(1955, 3, 21), city: 'Little Rock', state: 'AR')
+        @merchant_4 = create(:user, role: 1, created_at: Date.new(1955, 3, 21))
         @merchant_4.locations.create!(name: 'home', city: 'Little Rock', state: "AR", address: '123', zip: '12345')
 
         @merchant_5 = create(:user, role: 1, active: false)
@@ -26,29 +26,21 @@ RSpec.describe 'when visiting the merchants index page' do
 
         within "#merchant-#{@merchant_1.id}" do
           expect(page).to have_content(@merchant_1.name)
-          expect(page).to have_content(@merchant_1.city)
-          expect(page).to have_content(@merchant_1.state)
           expect(page).to have_content(@merchant_1.created_at.strftime("%B %d, %Y"))
         end
 
         within "#merchant-#{@merchant_2.id}" do
           expect(page).to have_content(@merchant_2.name)
-          expect(page).to have_content(@merchant_2.city)
-          expect(page).to have_content(@merchant_2.state)
           expect(page).to have_content(@merchant_2.created_at.strftime("%B %d, %Y"))
         end
 
         within "#merchant-#{@merchant_3.id}" do
           expect(page).to have_content(@merchant_3.name)
-          expect(page).to have_content(@merchant_3.city)
-          expect(page).to have_content(@merchant_3.state)
           expect(page).to have_content(@merchant_3.created_at.strftime("%B %d, %Y"))
         end
 
         within "#merchant-#{@merchant_4.id}" do
           expect(page).to have_content(@merchant_4.name)
-          expect(page).to have_content(@merchant_4.city)
-          expect(page).to have_content(@merchant_4.state)
           expect(page).to have_content(@merchant_4.created_at.strftime("%B %d, %Y"))
         end
         expect(page).to_not have_content(@merchant_5.name)
@@ -132,13 +124,13 @@ RSpec.describe 'when visiting the merchants index page' do
     end
     describe 'as an admin ' do
       before :each do
-        @admin_1 = User.create!(email: "ron_admin@gmail.com", password: "12345", role: 2, active: true, name: "Ron", address: "1234 Test Rd", city: "Kansas City", state: "MO", zip: '64086')
+        @admin_1 = User.create!(email: "ron_admin@gmail.com", password: "12345", role: 2, active: true, name: "Ron")
 
-        @m1 = User.create!(email: "jon_mer@gmail.com", password: "12345", role: 1, active: true, name: "Jon a", address: "1234 Test Rd", city: "Kansas City", state: "MO", zip: '64086')
-        @m2 = User.create!(email: "ron_mer@gmail.com", password: "12345", role: 1, active: false, name: "Ron b", address: "1234 Test Rd", city: "Kansas City", state: "MO", zip: '64086')
-        @user_1 = User.create!(email: "user1@gmail.com", password: "12345", role: 0, active: true, name: "Jon 1", address: "1234 Test Rd", city: "Kansas City", state: "MO", zip: '64086')
-        @user_2 = User.create!(email: "user2@gmail.com", password: "12345", role: 0, active: true, name: "Ron 2", address: "1234 Test Rd", city: "Kansas City", state: "MO", zip: '64086')
-        @user_3 = User.create!(email: "user3@gmail.com", password: "12345", role: 0, active: true, name: "Jon 3", address: "1234 Test Rd", city: "Kansas City", state: "MO", zip: '64086')
+        @m1 = User.create!(email: "jon_mer@gmail.com", password: "12345", role: 1, active: true, name: "Jon a")
+        @m2 = User.create!(email: "ron_mer@gmail.com", password: "12345", role: 1, active: false, name: "Ron b")
+        @user_1 = User.create!(email: "user1@gmail.com", password: "12345", role: 0, active: true, name: "Jon 1")
+        @user_2 = User.create!(email: "user2@gmail.com", password: "12345", role: 0, active: true, name: "Ron 2")
+        @user_3 = User.create!(email: "user3@gmail.com", password: "12345", role: 0, active: true, name: "Jon 3")
 
         @o1 = Order.create!(user: @user_1, status: 0)
         @o2 = Order.create!(user: @user_1, status: 1)

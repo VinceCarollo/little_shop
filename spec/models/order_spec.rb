@@ -15,7 +15,7 @@ RSpec.describe Order, type: :model do
 
   describe 'instance methods' do
     before :each do
-      @user = User.create!(email: "test@test.com", password_digest: "t3s7", role: 1, active: true, name: "Testy McTesterson", address: "123 Test St", city: "Testville", state: "Test", zip: "01234")
+      @user = User.create!(email: "test@test.com", password_digest: "t3s7", role: 1, active: true, name: "Testy McTesterson")
       @merchant_1 = create(:user)
       @merchant_2 = create(:user)
       @item_1 = create(:item, user: @merchant_1)
@@ -84,7 +84,7 @@ RSpec.describe Order, type: :model do
     end
 
     it '#check_fulfillments' do
-      user = User.create!(email: "not_test@test.com", password_digest: "t3s7", role: 1, active: true, name: "Testy McTesterson", address: "123 Test St", city: "Testville", state: "Test", zip: "01234")
+      user = User.create!(email: "not_test@test.com", password_digest: "t3s7", role: 1, active: true, name: "Testy McTesterson")
       merchant_1 = create(:user)
       item_1 = create(:item, user: merchant_1)
       item_2 = create(:item, user: merchant_1)
@@ -114,10 +114,10 @@ RSpec.describe Order, type: :model do
   describe 'class methods' do
 
     before :each do
-      @merchant_1 = create(:user, role: 1, created_at: Date.new(1995, 5, 3), city: 'Kansas City', state: "MO")
-      @merchant_2 = create(:user, role: 1, created_at: Date.new(2015, 12, 8), city: 'Springfield', state: 'CO')
-      @merchant_3 = create(:user, role: 1, created_at: Date.new(2002, 9, 10), city: 'Springfield', state: 'MI')
-      @merchant_4 = create(:user, role: 1, created_at: Date.new(1955, 3, 21), city: 'Little Rock', state: 'AR')
+      @merchant_1 = create(:user, role: 1, created_at: Date.new(1995, 5, 3))
+      @merchant_2 = create(:user, role: 1, created_at: Date.new(2015, 12, 8))
+      @merchant_3 = create(:user, role: 1, created_at: Date.new(2002, 9, 10))
+      @merchant_4 = create(:user, role: 1, created_at: Date.new(1955, 3, 21))
       @merchant_5 = create(:user, role: 1, active: false)
       @merchant_6 = create(:user, role: 1, active: false)
       user = create(:user)

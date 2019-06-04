@@ -1,12 +1,8 @@
 <h2>Order <%= @order.id %></h2>
 
 <p>Name: <%= @user.name %></p>
-<% if @user.locations.empty? %>
-  <p>Address: <%= @user.address %>, <%= @user.city %>, <%= @user.state %>, <%= @user.zip %></p>
-<% else %>
-  <% @user.locations.each do |location| %>
-    <p>Address <%= location.name.capitalize %>: <%= location.address %>, <%= location.city %>, <%= location.state %>, <%= location.zip %> </p>
-  <% end %>
+<% @user.locations.each do |location| %>
+  <p>Address <%= location.name.capitalize %>: <%= location.address %>, <%= location.city %>, <%= location.state %>, <%= location.zip %> </p>
 <% end %>
 
 

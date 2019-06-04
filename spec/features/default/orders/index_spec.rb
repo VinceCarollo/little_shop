@@ -5,7 +5,7 @@ RSpec.describe 'As a Registered User', type: :feature do
 
   describe 'When I visit my own Orders page' do
     before :each do
-      @user = User.create!(email: "test@test.com", password_digest: "t3s7", role: 0, active: true, name: "Testy McTesterson", address: "123 Test St", city: "Testville", state: "Test", zip: "01234")
+      @user = User.create!(email: "test@test.com", password_digest: "t3s7", role: 0, active: true, name: "Testy McTesterson")
       @merchant_1 = create(:user)
       @merchant_2 = create(:user)
       @item_1 = create(:item, user: @merchant_1)
@@ -98,7 +98,7 @@ RSpec.describe 'As a Registered User', type: :feature do
     end
 
     it 'I see no items if I have no orders' do
-      user = User.create!(email: "not_test@test.com", password_digest: "t3s7", role: 0, active: true, name: "Testy McTesterson", address: "123 Test St", city: "Testville", state: "Test", zip: "01234")
+      user = User.create!(email: "not_test@test.com", password_digest: "t3s7", role: 0, active: true, name: "Testy McTesterson")
       allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
 
       visit profile_orders_path

@@ -14,7 +14,6 @@
     <p>Subtotal: <%= number_to_currency(order_item.sub_total, unit: "$") %></p>
   </section>
 <% end %>
-
 <% if !@order.location.nil? %>
   <p>Address Used: <%= @order.location.name %></p>
   <p><%= @order.location.address %></p>
@@ -30,8 +29,14 @@
 <% else %>
   <p>Grand Total: <%= number_to_currency(@order.grand_total, unit: "$") %></p>
 <% end %>
-
-<%= button_to "Cancel Order", profile_order_path(@order), method: "delete", disabled: !@order.pending? %>
+<%= form_tag(profile_order_path(@order), method: :patch, class: 'text-center') do %>
+    <% @user.locations.each do |location| %>
+      <%= radio_button_tag 'location', location.name %>
+      <%= label_tag location.name %>
+    <% end %><br>
+  <%= submit_tag("Change This Orders Address", class: 'btn btn-primary') %>
+<% end %>
+<%= button_to "Cancel Order", profile_order_path(@order), method: "delete", disabled: !@order.pending?, class: 'btn btn-primary'%>
 <% if !@order.pending? %>
   <p>You can only cancel orders that are pending!</p>
 <% end %>

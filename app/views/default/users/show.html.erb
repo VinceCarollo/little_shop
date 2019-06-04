@@ -1,27 +1,33 @@
-
-<h2><%= @user.name %></h2>
-<p>Email: <%= @user.email %></p>
-<p>Role: <%= @user.role %></p>
-<p>Active: <%= @user.active %></p>
-<section id='locations'>
-  <h3>Your Saved Addresses</h3>
-  <%= link_to "Add Address", new_user_location_path(@user)  %>
-  <% @user.locations.each do |location| %>
-    <section id='location-<%= location.id %>'>
-      <h4><%= location.name %></h4>
-      <p>Address: <%= location.address %></p>
-      <p>City: <%= location.city %></p>
-      <p>State: <%= location.state %></p>
-      <p>Zip: <%= location.zip %></p>
-      <p><%= link_to "Delete #{location.name.capitalize}", user_location_path(@user, location), method: :delete  %></p>
-      <p><%= link_to "Edit #{location.name.capitalize}", edit_user_location_path(@user, location) %></p>
+<div class='text-center'>
+  <h2><%= @user.name %></h2>
+  <p>Email: <%= @user.email %></p>
+  <p>Role: <%= @user.role %></p>
+  <p>Active: <%= @user.active %></p>
+  <section id='locations'>
+    <h3>Your Saved Addresses</h3>
+    <%= link_to "Add Address", new_user_location_path(@user)  %>
+    <section class="card-group">
+      <% @user.locations.each do |location| %>
+        <div class="card" style="width: 18rem;" id='location-<%= location.id %>'>
+          <div class="card-header">
+            <h6 class="text-center"><%= location.name %></h6>
+          </div>
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item">Address: <%= location.address %></li>
+            <li class="list-group-item">City: <%= location.city %></li>
+            <li class="list-group-item">State: <%= location.state %></li>
+            <li class="list-group-item">Zip: <%= location.zip %></li>
+            <li class="list-group-item"><%= link_to "Delete #{location.name.capitalize}", user_location_path(@user, location), method: :delete  %></li>
+            <li class="list-group-item"><%= link_to "Edit #{location.name.capitalize}", edit_user_location_path(@user, location) %></li> 
+          </ul>
+        </div>
+      <% end %>
     </section>
+  </section>
+  <br>
+  <p><%= link_to "Edit Profile", profile_edit_path %></p>
+
+  <% if @user.orders.length > 0 %>
+    <p><%= link_to "My Orders", profile_orders_path %></p>
   <% end %>
-</section>
-
-<p><%= link_to "Edit Profile", profile_edit_path %></p>
-
-<% if @user.orders.length > 0 %>
-  <p><%= link_to "My Orders", profile_orders_path %></p>
-<% end %>
-
+</div>

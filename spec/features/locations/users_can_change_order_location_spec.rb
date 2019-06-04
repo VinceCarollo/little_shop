@@ -18,11 +18,9 @@ RSpec.describe 'As a user with an order in the system' do
     it 'can change order location' do
       visit profile_order_path(@order)
 
-      click_link "Change Order Address"
-
       find(:css, "#location_work[value='work']").click
 
-      click_button "Change Address"
+      click_button "Change This Orders Address"
       expect(current_path).to eq(profile_order_path(@order))
       expect(page).to have_content("This order's address was successfully changed")
       expect(page).to have_content("Address Used: work")
@@ -35,11 +33,9 @@ RSpec.describe 'As a user with an order in the system' do
       
       visit profile_order_path(@order)
 
-      click_link "Change Order Address"
-
       find(:css, "#location_work[value='work']").click
 
-      click_button "Change Address"
+      click_button "Change This Orders Address"
       expect(current_path).to eq(profile_order_path(@order))
       expect(page).to have_content("This Order's address cannot be changed")
       expect(page).to have_content("Address Used: home")
@@ -50,11 +46,9 @@ RSpec.describe 'As a user with an order in the system' do
 
       visit profile_order_path(@order)
 
-      click_link "Change Order Address"
-
       find(:css, "#location_work[value='work']").click
 
-      click_button "Change Address"
+      click_button "Change This Orders Address"
       expect(current_path).to eq(profile_order_path(@order))
       expect(page).to have_content("This Order's address cannot be changed")
       expect(page).to have_content("Address Used: home")
@@ -65,11 +59,9 @@ RSpec.describe 'As a user with an order in the system' do
 
       visit profile_order_path(@order)
 
-      click_link "Change Order Address"
-
       find(:css, "#location_work[value='work']").click
 
-      click_button "Change Address"
+      click_button "Change This Orders Address"
       expect(current_path).to eq(profile_order_path(@order))
       expect(page).to have_content("This Order's address cannot be changed")
       expect(page).to have_content("Address Used: home")

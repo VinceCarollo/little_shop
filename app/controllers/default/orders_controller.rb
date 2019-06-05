@@ -64,7 +64,7 @@ class Default::OrdersController < Default::BaseController
     used = false
     user.orders.each do |order|
       if order.location == location
-        used = order.status == "shipped" || order.status == "packaged" || order.status == "shipped"
+        used = order.status == "shipped" || order.status == "packaged"
       end
     end
     used

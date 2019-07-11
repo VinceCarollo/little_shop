@@ -27,7 +27,7 @@ Statistics for Merchants and Items on the site are visible on their respectable 
 
 #### Configuration
 - clone repo
-```ruby
+```bash
 bundle install
 rails db:{create,migrate,seed}
 rails server
@@ -35,7 +35,7 @@ rails server
 - In Browser `localhost:3000`
 
 #### Testing
-```ruby
+```bash
 rspec
 ```
 - Rspec/Capybara

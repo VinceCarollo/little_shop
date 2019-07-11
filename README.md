@@ -27,16 +27,23 @@ Statistics for Merchants and Items on the site are visible on their respectable 
 
 #### Configuration
 - clone repo
-- run `bundle install`
-- run `rails db:{create,migrate,seed}`
-- run `rails server`
-- Open a browser and type `localhost:3000`
+```ruby
+bundle install
+rails db:{create,migrate,seed}
+rails server
+```
+- In Browser `localhost:3000`
 
 #### Testing
-- run `rspec` to execute all feature and model tests
+```ruby
+rspec
+```
+- Rspec/Capybara
+- Shoulda Matchers
 
 #### Contributors
 - Brennan Ayers
 - Billy Homer
 - Zach Leach
 - Vince Carollo
+

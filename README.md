@@ -17,7 +17,7 @@ A Merchant can add their items which include a price for that item, an inventory
 
 ![welcome_page](/app/assets/images/cart_page.png)
 
-Statistics for Merchants and Items on the site are visible on their respectable pages, and only show statistics for items that have been sold.
+Statistics for Merchants and Items on the site are visible on their respective pages, and only show statistics for items that have been sold.
 
 
 

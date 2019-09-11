@@ -10,7 +10,7 @@ class Item < ApplicationRecord
   validates_inclusion_of :active, in: [true, false]
 
   def self.all_active
-    where(active: true)
+    where(active: true).includes(:user)
   end
 
   def self.most_5_bought

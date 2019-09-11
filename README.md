@@ -17,7 +17,7 @@ A Merchant can add their items which include a price for that item, an inventory
 
 ![welcome_page](/app/assets/images/cart_page.png)
 
-Statistics for Merchants and Items on the site are visible on their respectable pages, and only show statistics for items that have been sold.
+Statistics for Merchants and Items on the site are visible on their respective pages, and only show statistics for items that have been sold.
 
 
 
@@ -27,16 +27,23 @@ Statistics for Merchants and Items on the site are visible on their respectable 
 
 #### Configuration
 - clone repo
-- run `bundle install`
-- run `rails db:{create,migrate,seed}`
-- run `rails server`
-- Open a browser and type `localhost:3000`
+```bash
+bundle install
+rails db:{create,migrate,seed}
+rails server
+```
+- In Browser `localhost:3000`
 
 #### Testing
-- run `rspec` to execute all feature and model tests
+```bash
+rspec
+```
+- Rspec/Capybara
+- Shoulda Matchers
 
 #### Contributors
 - Brennan Ayers
 - Billy Homer
 - Zach Leach
 - Vince Carollo
+

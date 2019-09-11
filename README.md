@@ -10,7 +10,7 @@ This app is a shop for cheese. You can see all cheeses, add them to your cart, a
 
 ![welcome_page](/app/assets/images/welcome_page.png)
 
-![welcome_page](/app/assets/images/items_page.png)
+![items_](/app/assets/images/items_page.png)
 
 A Merchant can add their items which include a price for that item, an inventory amount, and a picture. They can disable, enable, and delete their items as they please. Any item that a merchant makes and that is enabled will show on the main 'cheeses' page for buyers to view. As each of a merchants items are ordered, the merchant can then 'fulfill' all of their items on an order. Once all items on an order are fulfilled, an order's status will change from 'pending' to 'packaged'. Only an admin can change an order's status from 'packaged' to 'shipped'. Once the order is shipped, all of it's items are considered to be sold, and are subtracted from it's inventory.
 
@@ -46,4 +46,3 @@ rspec
 - Billy Homer
 - Zach Leach
 - Vince Carollo
-
